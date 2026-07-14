@@ -1,3 +1,4 @@
+
 # Tic-Tac-Toe Arena
 
 Real-time 1v1 tic-tac-toe with live matchmaking and a persistent leaderboard.
@@ -23,29 +24,3 @@ uvicorn main:app --reload --port 8000
 
 Then open **http://localhost:8000** in two different browser tabs (or two browsers / incognito windows) to simulate two players. The SQLite database (`arena.db`) is created automatically on first run.
 
-## Project structure
-```
-tictactoe-arena/
-├── backend/
-│   ├── main.py           # FastAPI app + WebSocket endpoint (matchmaking + move handling)
-│   ├── game_manager.py   # In-memory queue, Game/Player classes, win detection
-│   ├── database.py       # SQLite leaderboard persistence
-│   └── requirements.txt
-└── frontend/
-    ├── index.html
-    ├── style.css
-    └── script.js          # WebSocket client, board rendering, leaderboard drawer
-```
-
-## Talking points for interviews
-- **Real-time sync without polling:** state is pushed to both clients the instant a move is made, using a single WebSocket connection per player.
-- **Server-authoritative game logic:** the client never decides who won — every move and win condition is validated server-side, so a modified client can't cheat.
-- **Matchmaking as a queue, not a lobby list:** models the same "first-available-opponent" pattern used in real matchmaking systems (like competitive game queues), rather than manual room codes.
-- **Clean disconnect handling:** if a player closes the tab mid-game, the opponent is notified immediately instead of hanging.
-- **Persistent ranking with a derived score:** `wins*3 + draws` is a simple scoring formula you can defend and easily extend (e.g. ELO) if asked "how would you scale this?"
-
-## Natural extensions (if you want to go further)
-- Swap SQLite for MongoDB Atlas — you already have that on your resume, so mention you chose SQLite here deliberately for a zero-config demo, but the schema maps directly.
-- Add a "rematch" button that re-queues both players against each other.
-- Deploy backend on Render/Railway and frontend anywhere static — gives you a live demo link for your resume.
-- Add reconnect/resume-game support using the `game_id`.
