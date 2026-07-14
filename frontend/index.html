@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic-Tac-Toe Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">⌗</span>
+    <span class="brand-name">ARENA</span>
+  </div>
+  <button id="leaderboard-toggle" class="ghost-btn">Rankings</button>
+</header>
+
+<main id="app">
+
+  <!-- LOBBY -->
+  <section id="screen-lobby" class="screen active">
+    <div class="lobby-card">
+      <p class="eyebrow">Enter the arena</p>
+      <h1>Tic-Tac-Toe<br><span class="accent">Arena</span></h1>
+      <p class="sub">1v1. Real-time. No draws survive twice.</p>
+      <input id="name-input" type="text" placeholder="Your fighter name" maxlength="20" autocomplete="off" />
+      <button id="find-match-btn" class="primary-btn">Find Opponent</button>
+    </div>
+  </section>
+
+  <!-- QUEUE -->
+  <section id="screen-queue" class="screen">
+    <div class="queue-card">
+      <div class="pulse-ring"></div>
+      <p class="eyebrow">Searching</p>
+      <h2>Waiting for a challenger…</h2>
+      <p class="sub">Hang tight — you'll be matched instantly when someone else queues up.</p>
+      <button id="cancel-queue-btn" class="ghost-btn">Cancel</button>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen">
+    <div class="matchcard">
+      <div class="fighter fighter-x">
+        <span class="fighter-symbol">X</span>
+        <span class="fighter-name" id="player-x-name">—</span>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="fighter fighter-o">
+        <span class="fighter-symbol">O</span>
+        <span class="fighter-name" id="player-o-name">—</span>
+      </div>
+    </div>
+
+    <p id="turn-indicator" class="turn-indicator">—</p>
+
+    <div class="arena-board" id="board">
+      <button class="cell" data-cell="0"></button>
+      <button class="cell" data-cell="1"></button>
+      <button class="cell" data-cell="2"></button>
+      <button class="cell" data-cell="3"></button>
+      <button class="cell" data-cell="4"></button>
+      <button class="cell" data-cell="5"></button>
+      <button class="cell" data-cell="6"></button>
+      <button class="cell" data-cell="7"></button>
+      <button class="cell" data-cell="8"></button>
+    </div>
+
+    <div id="result-banner" class="result-banner hidden">
+      <p id="result-text"></p>
+      <button id="play-again-btn" class="primary-btn">Back to Lobby</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- LEADERBOARD DRAWER -->
+<aside id="leaderboard-drawer" class="drawer">
+  <div class="drawer-header">
+    <span class="eyebrow">Hall of Fame</span>
+    <button id="close-leaderboard" class="ghost-btn small">✕</button>
+  </div>
+  <table class="leaderboard-table">
+    <thead>
+      <tr><th>#</th><th>Fighter</th><th>W</th><th>L</th><th>D</th><th>Streak</th></tr>
+    </thead>
+    <tbody id="leaderboard-body"></tbody>
+  </table>
+</aside>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
